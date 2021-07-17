@@ -1,0 +1,9 @@
+{% extends 'base1.html' %}
+{% block content %}
+    <div class="delete">
+        <h1 class="text-danger">Delete Entry</h1>
+        <h4>Are you sure?<br><strong>Do you really want to delete these record? This process can not be undone...!</strong></h4><br>
+        <a style="padding: 12px 40px" href="{% url 'view_entry' %}" class="btn btn-outline-primary">Cancel</a>&nbsp;&nbsp;
+        <a style="padding: 12px 40px" href="{% url 'delete_entry' %}?d_id={{ entry }}" class="btn btn-outline-danger">Delete</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,215 @@
+{% load static %}
+{% load humanize %}
+{% if entry %}
+    <head>
+        <style>
+            table {
+                width: 95%;
+                border-spacing: 0;
+                border-collapse: collapse;
+            }
+
+            table th, table td {
+                text-align: left;
+                padding: 6px;
+                margin: 0;
+                border: 1px solid darkblue;
+            }
+
+            .detail_head {
+                font-size: 30px;
+                color: black;
+                background-color: lavender;
+                text-align: center;
+            }
+
+            .detail_title {
+                font-size: 22px;
+                font-weight: bold;
+                color: #0a53be;
+            }
+
+            th {
+                font-size: 20px;
+            }
+        </style>
+    </head>
+    <div>
+        <div>
+            <div>
+                <table border="1">
+                    <tr>
+                        <th class="detail_head" colspan="2">Receipt</th>
+                    </tr>
+                    <tr>
+                        <th class="detail_title">Firm Name:</th>
+                        <th>{{ entry.firm_name }}</th>
+                    </tr>
+                    <tr>
+                        <th class="detail_title">Lr_NO:</th>
+                        <th>{{ entry.lr_no }}</th>
+                    </tr>
+                    <tr>
+                        <th class="detail_title">Date:</th>
+                        <th>{{ entry.date }}</th>
+                    </tr>
+                    <tr>
+                        <th class="detail_title">Vehicle_no:</th>
+                        <th>{{ entry.vehicle_no }}</th>
+                    </tr>
+                    <tr>
+                        <th class="detail_title">Location:</th>
+                        <th>{{ entry.location }}</th>
+                    </tr>
+                    <tr>
+                        <th class="detail_title">Amount:</th>
+                        <th>{{ entry.amount|intcomma }}</th>
+                    </tr>
+                    <tr>
+                        <th class="detail_title">Cash:</th>
+                        <th>{{ entry.cash|intcomma }}</th>
+                    </tr>
+                    <tr>
+                        <th class="detail_title">Diesel:</th>
+                        <th>{{ entry.diesel|intcomma }}</th>
+                    </tr>
+                    <tr>
+                        <th class="detail_title">Rtgs:</th>
+                        <th>{{ entry.rtgs|intcomma }}</th>
+                    </tr>
+                    <tr>
+                        <th class="detail_title">Commission:</th>
+                        <th>{{ entry.commission|intcomma }}</th>
+                    </tr>
+                    <tr>
+                        <th class="detail_title">Total_balance:</th>
+                        <th>{{ entry.total_balance|intcomma }}</th>
+                    </tr>
+                    <tr>
+                        <th class="detail_title">Status:</th>
+                        <th>{{ entry.status|title }}</th>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+    </div>
+{% endif %}
+{% if search_results %}
+    <head>
+        <style>
+            table {
+                height: 60px;
+                width: 100%;
+                border: 1px solid darkblue;
+            }
+        </style>
+    </head>
+    <div>
+        <div style="margin-top: 10%;margin-left: 5%">
+            <h1 align="center" style="font-weight: bold;font-size: 25px">ENTRIES</h1>
+            <div>
+                <table>
+                    <tr style="font-size: 11px;background-color: lavender;" class="table_header">
+                         <th colspan="2">S.NO.</th>
+                        <th colspan="2">DATE</th>
+                        <th colspan="2">Firm Name</th>
+                        <th colspan="2">LR No.</th>
+                        <th colspan="3">VEHICLE NO.</th>
+                        <th colspan="4">LOCATION</th>
+                        <th colspan="2">AMOUNT</th>
+                        <th colspan="2">CASH</th>
+                        <th colspan="2">DIESEL</th>
+                        <th colspan="2">RTGS</th>
+                        <th colspan="2">COMM-<br>ISSION</th>
+                        <th colspan="2">TOTAL BALANCE</th>
+                        <th colspan="2">STATUS</th>
+                    </tr>
+                    {% for entry in search_results %}
+                        <tr>
+                            <th colspan="2">{{ forloop.revcounter }}</th>
+                            <th colspan="2">{{ entry.date }}</th>
+                            <th colspan="2">{{ entry.firm_name }}</th>
+                            <th colspan="2">{{ entry.lr_no }}</th>
+                            <th colspan="3">{{ entry.vehicle_no|upper }}</th>
+                            <th colspan="4">{{ entry.location|title }}</th>
+                            <th colspan="2">{{ entry.amount|intcomma }}</th>
+                            <th colspan="2">{{ entry.cash|intcomma }}</th>
+                            <th colspan="2">{{ entry.diesel|intcomma }}</th>
+                            <th colspan="2">{{ entry.rtgs|intcomma }}</th>
+                            <th colspan="2">{{ entry.commission|intcomma }}</th>
+                            <th colspan="2">{{ entry.total_balance|intcomma }}</th>
+                            <th colspan="2">{{ entry.status|title }}</th>
+                        </tr>
+                    {% endfor %}
+                    {% if sum_of_vehicle_no %}
+                        <tr>
+                            <td colspan="29"><h1 style="font-size: 15px">Total:{{ sum_of_vehicle_no|intcomma }}</h1></td>
+                        </tr>
+                    {% elif sum_of_status %}
+                        <tr>
+                            <td colspan="29"><h1 style="font-size: 15px">Total:{{ sum_of_status|intcomma }}</h1></td>
+                        </tr>
+                    {% elif sum_of_lr_no %}
+                        <tr>
+                            <td colspan="29"><h1 style="font-size: 15px">Total:{{ sum_of_lr_no|intcomma }}</h1></td>
+                        </tr>
+                    {% endif %}
+                </table><br><br><br>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+{% if all_entry %}
+    <head>
+        <style>
+            table {
+                height: 60px;
+                width: 100%;
+                border: 1px solid darkblue;
+            }
+        </style>
+    </head>
+    <div>
+        <div style="margin-top: 10%;margin-left: 5%">
+            <h1 align="center" style="font-weight: bold;font-size: 25px">ENTRIES</h1>
+            <div>
+                <table>
+                    <tr style="font-size: 11px;background-color: lavender;" class="table_header">
+                        <th colspan="2">S.NO.</th>
+                        <th colspan="2">DATE</th>
+                        <th colspan="2">Firm Name</th>
+                        <th colspan="2">LR No.</th>
+                        <th colspan="3">VEHICLE NO.</th>
+                        <th colspan="4">LOCATION</th>
+                        <th colspan="2">AMOUNT</th>
+                        <th colspan="2">CASH</th>
+                        <th colspan="2">DIESEL</th>
+                        <th colspan="2">RTGS</th>
+                        <th colspan="2">COMM-<br>ISSION</th>
+                        <th colspan="2">TOTAL BALANCE</th>
+                        <th colspan="2">STATUS</th>
+                    </tr>
+                    {% for entry in all_entry %}
+                        <tr>
+                            <th colspan="2">{{ forloop.revcounter }}</th>
+                            <th colspan="2">{{ entry.date }}</th>
+                            <th colspan="2">{{ entry.firm_name }}</th>
+                            <th colspan="2">{{ entry.lr_no }}</th>
+                            <th colspan="3">{{ entry.vehicle_no|upper }}</th>
+                            <th colspan="4">{{ entry.location|title }}</th>
+                            <th colspan="2">{{ entry.amount|intcomma }}</th>
+                            <th colspan="2">{{ entry.cash|intcomma }}</th>
+                            <th colspan="2">{{ entry.diesel|intcomma }}</th>
+                            <th colspan="2">{{ entry.rtgs|intcomma }}</th>
+                            <th colspan="2">{{ entry.commission|intcomma }}</th>
+                            <th colspan="2">{{ entry.total_balance|intcomma }}</th>
+                            <th colspan="2">{{ entry.status|title }}</th>
+                        </tr>
+                    {% endfor %}
+                </table><br><br><br>
+            </div>
+        </div>
+    </div>
+{% endif %}

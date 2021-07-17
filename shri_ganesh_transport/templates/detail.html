@@ -1,0 +1,64 @@
+{% extends 'base1.html' %}
+{% block content %}
+    <br><br><br><br>
+    <div class="detail_media">
+        <table>
+            <tr>
+                <th class="detail_head" colspan="2">Receipt</th>
+            </tr>
+            <tr>
+                <th class="detail_title">Lr_NO:</th>
+                <th>{{ entry.lr_no }}</th>
+            </tr>
+             <tr>
+                <th class="detail_title">Firm Name:</th>
+                <th>{{ entry.firm_name }}</th>
+            </tr>
+            <tr>
+                <th class="detail_title">Date:</th>
+                <th>{{ entry.date }}</th>
+            </tr>
+            <tr>
+                <th class="detail_title">Vehicle_no:</th>
+                <th>{{ entry.vehicle_no }}</th>
+            </tr>
+            <tr>
+                <th class="detail_title">Location:</th>
+                <th>{{ entry.location }}</th>
+            </tr>
+            <tr>
+                <th class="detail_title">Amount:</th>
+                <th>{{ entry.amount }}</th>
+            </tr>
+            <tr>
+                <th class="detail_title">Cash:</th>
+                <th>{{ entry.cash }}</th>
+            </tr>
+            <tr>
+                <th class="detail_title">Diesel:</th>
+                <th>{{ entry.diesel }}</th>
+            </tr>
+            <tr>
+                <th class="detail_title">RTGS:</th>
+                <th>{{ entry.rtgs }}</th>
+            </tr>
+            <tr>
+                <th class="detail_title">Commission:</th>
+                <th>{{ entry.commission }}</th>
+            </tr>
+            <tr>
+                <th class="detail_title">Status:</th>
+                <th>{{ entry.status|title }}</th>
+            </tr>
+            <tr>
+                <th class="detail_title">Total_balance:</th>
+                <th>{{ entry.total_balance }}</th>
+            </tr>
+            <tr>
+                <th colspan="2">
+                    <a href="{% url 'pdf_report' pk=entry.lr_no %}">Download PDF</a></th>
+            </tr>
+        </table>
+        <br><br>
+    </div>
+{% endblock %}

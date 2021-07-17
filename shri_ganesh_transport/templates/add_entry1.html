@@ -1,0 +1,125 @@
+{% extends 'base1.html' %}
+{% block content %}
+    <section id="about" class="about" style="margin-top: -5%;">
+          <div class="container1" data-aos="fade-up">
+            <div class="section-title" style="margin-top: 12%; margin-left: -10%;">
+                <h2>Add Entry</h2>
+                <a href="{% url 'view_entry' %}" class="btn btn-outline-dark">View Entry</a>
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-danger btn-outline-danger">
+                            <strong style="margin-left: 35%">{{ message|escape }}</strong>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            <form method="post" action="{% url 'add_entry' %}">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-25">
+                        <label for="date">Date</label>
+                    </div>
+                    <div class="col-75">
+                        <span id="date">{{ form.date }}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                        <label for="firm_name">Firm name:</label>
+                    </div>
+                    <div class="col-75">
+                        <select name="firm_name" id="firm_name">
+                            <option value="shri ganesh roadline">Shri Ganesh Roadline</option>
+                            <option value="new gandhi roadline">New Gandhi Roadline</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                        <label for="lr_no">LR No.:</label>
+                    </div>
+                    <div class="col-75">
+                        <span id="lr_no">{{ form.lr_no }}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                        <label for="vn">Vehicle No:</label>
+                    </div>
+                    <div class="col-75">
+                        <span id="vn">{{ form.vehicle_no }}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                        <label for="location">Location:</label>
+                    </div>
+                    <div class="col-75">
+                        <span id="location">{{ form.location }}</span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-25">
+                        <label for="ln">Amount:</label>
+                    </div>
+                    <div class="col-75">
+                        <span id="ln">{{ form.amount }}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                        <label for="email">Cash:</label>
+                    </div>
+                    <div class="col-75">
+                        <span id="email">{{ form.cash }}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                        <label for="p1">Diesel:</label>
+                    </div>
+                    <div class="col-75">
+                        <span id="p1">{{ form.diesel }}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                        <label for="p2">RTGS:</label>
+                    </div>
+                    <div class="col-75">
+                        <span id="p2">{{ form.rtgs }}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                        <label for="p3">Commission:</label>
+                    </div>
+                    <div class="col-75">
+                        <span id="p3">{{ form.commission }}</span>
+                    </div>
+                </div>
+                 <div class="row">
+                    <div class="col-25">
+                        <label for="status">Status:</label>
+                    </div>
+                    <div class="col-75">
+                        <select name="status" id="status">
+                            <option value="done">Done</option>
+                            <option value="pending">Pending</option>
+                            <option value="cancle">Cancle</option>
+                        </select>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="signup">
+                        <input type="submit" class="btn btn-lg btn-success" value="Add Entry"><br><br><br>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section><!-- End Services Section -->
+
+{% endblock %}

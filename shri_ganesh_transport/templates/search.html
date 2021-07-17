@@ -1,0 +1,82 @@
+{% extends 'base1.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+    <div>
+        <div class="res_list" style="overflow-x: auto">
+            <h1 style="font-weight: bold">ENTRIES&nbsp;
+            </h1>
+            <div>
+                {% if search_results %}
+                    <a href="{% url 'add_entry' %}" class="btn btn-outline-dark">Add Entry</a>&nbsp;&nbsp;
+                    <a href="{% url 'search_result_pdf' %}?query={{ query }}" class="btn btn-outline-success">Download
+                        Pdf</a>&nbsp;
+                    <a href="{% url 'export_excel' %}?excel={{ query }}" class="btn btn-outline-primary">Export to
+                        Excel</a>&nbsp;&nbsp;<br><br>
+                    <table>
+                        <tr class="table_header">
+                            <th>S.NO.</th>
+                            <th>DATE</th>
+                            <th>Firm Name</th>
+                            <th>LR No.</th>
+                            <th>VEHICLE NO.</th>
+                            <th>LOCATION(From-To)</th>
+                            <th>AMOUNT</th>
+                            <th>CASH</th>
+                            <th>DIESEL</th>
+                            <th>RTGS</th>
+                            <th>COMMISSION</th>
+                            <th>TOTAL BALANCE</th>
+                            <th>STATUS</th>
+                            <th>UPDATE</th>
+                            <th>DELETE</th>
+                        </tr>
+                        {% for entry in search_results %}
+                            <tr>
+                                <th>{{ forloop.revcounter }}</th>
+                                <th>{{ entry.date }}</th>
+                                <th>{{ entry.firm_name|title }}</th>
+                                <th><a href="{{ entry.get_absolute_url }}">{{ entry.lr_no }}</a></th>
+                                <th>{{ entry.vehicle_no|upper }}</th>
+                                <th>{{ entry.location|title }}</th>
+                                <th>{{ entry.amount|intcomma }}</th>
+                                <th>{{ entry.cash|intcomma }}</th>
+                                <th>{{ entry.diesel|intcomma }}</th>
+                                <th>{{ entry.rtgs|intcomma }}</th>
+                                <th>{{ entry.commission|intcomma }}</th>
+                                <th>{{ entry.total_balance|intcomma }}</th>
+                                <th>{{ entry.status|title }}</th>
+                                <th>
+                                    <form action="{% url 'update_entry' %}" method="post">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="u_id" value="{{ entry.lr_no }}">
+                                        <button class="btn btn-outline-dark" type="submit">Update</button>
+                                    </form>
+                                </th>
+                                <th>
+                                    <a href="{% url 'delete_go' %}?delete={{ entry.lr_no }}" role="button"
+                                       class="btn btn-outline-danger">Delete</a>
+                                </th>
+                            </tr>
+                        {% endfor %}
+                        {% if sum_of_vehicle_no %}
+                            <tr>
+                                <th colspan="15">Total:{{ sum_of_vehicle_no|intcomma }}</th>
+                            </tr>
+                        {% elif sum_of_status %}
+                            <tr>
+                                <th colspan="15">Total:{{ sum_of_status|intcomma }}</th>
+                            </tr>
+                        {% elif sum_of_lr_no %}
+                            <tr>
+                                <th colspan="15">Total:{{ sum_of_lr_no|intcomma }}</th>
+                            </tr>
+                        {% endif %}
+                    </table><br><br><br>
+                {% else %}
+                    <h2>No Search Result Found!!!</h2>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock content %}

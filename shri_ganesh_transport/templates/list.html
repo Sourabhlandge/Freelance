@@ -1,0 +1,94 @@
+{% extends 'base1.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+    <div class="res_list" style="overflow-x: auto;">
+        <div>
+            <h1 style="font-weight: bold">ENTRIES<br>
+                <a href="{% url 'add_entry' %}" class="btn btn-outline-dark">Add Entry</a>&nbsp;
+                <a href="{% url 'pdf_report_all_create' %}" class="btn btn-outline-success">Download Pdf</a>&nbsp;
+                <a href="{% url 'export_excel_without_search' %}" class="btn btn-outline-primary">Export to Excel</a>&nbsp;&nbsp;
+            </h1>
+            <div>
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-success btn-outline-success">
+                            <strong style="margin-left: 35%">{{ message|escape }}</strong>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>&nbsp;&nbsp;
+            <div>
+                <form method="post" action="{% url 'showresult' %}">
+                    {% csrf_token %}
+                    <div class="from_date_to">
+                        <b>From :</b><input type="date" name="fromdate">
+                        <b>TO :</b><input type="date" name="todate">&nbsp;&nbsp;&nbsp;
+                        <input type="submit" value="search">
+                    </div>
+                    <br>
+                </form>
+
+                {% if entry %}
+                    &nbsp;&nbsp;&nbsp;
+                    <table>
+                        <tr class="table_header">
+                            <th>S.NO.</th>
+                            <th>DATE</th>
+                            <th>Firm Name</th>
+                            <th>LR No.</th>
+                            <th>VEHICLE NO.</th>
+                            <th>LOCATION(From-To)</th>
+                            <th>AMOUNT</th>
+                            <th>CASH</th>
+                            <th>DIESEL</th>
+                            <th>RTGS</th>
+                            <th>COM-MISSION</th>
+                            <th>TOTAL BALANCE</th>
+                            <th>STATUS</th>
+                            <th>UPDATE</th>
+                            <th>DELETE</th>
+                        </tr>
+                        {% for entry in post %}
+                            <tr>
+                                <th>{{ forloop.revcounter }}</th>
+                                <th>{{ entry.date }}</th>
+                                <th>{{ entry.firm_name|title }}</th>
+                                <th><a
+                                        href="{{ entry.get_absolute_url }}">{{ entry.lr_no }}</a>
+                                </th>
+                                <th>{{ entry.vehicle_no|upper }}</th>
+                                <th>{{ entry.location|title }}</th>
+                                <th>{{ entry.amount|intcomma }}</th>
+                                <th>{{ entry.cash|intcomma }}</th>
+                                <th>{{ entry.diesel|intcomma }}</th>
+                                <th>{{ entry.rtgs|intcomma }}</th>
+                                <th>{{ entry.commission|intcomma }}</th>
+                                <th>{{ entry.total_balance|intcomma }}</th>
+                                <th>{{ entry.status|title }}</th>
+                                <th>
+                                    <form action="{% url 'update_entry' %}" method="post">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="u_id" value="{{ entry.lr_no }}">
+                                        <button class="btn btn-outline-dark" type="submit">Update</button>
+                                    </form>
+                                </th>
+                                <th>
+                                    <a href="{% url 'delete_go' %}?delete={{ entry.lr_no }}" role="button"
+                                       class="btn btn-outline-danger">Delete</a>
+                                </th>
+                            </tr>
+                        {% endfor %}
+                        {% include 'pagination.html' with page=post %}
+                    </table><br><br><br><br>
+
+                    </div>
+                {% else %}
+                    <p>No Entries here...!</p>
+                {% endif %}
+        </div>
+    </div>
+{% endblock content %}
+
+{##}
+{#<span style="margin-left: 75.5%;font-size: 20px;font-weight: bold;color: red">Overall Entries Total:{{ total_sum|intcomma }}</span>#}

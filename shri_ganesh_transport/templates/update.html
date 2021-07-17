@@ -1,0 +1,120 @@
+{% extends 'base1.html' %}
+{% block content %}
+    <section id="about" class="about" style="margin-top: -5%;">
+        <div class="container1" data-aos="fade-up">
+            <div class="section-title" style="margin-top: 12%; margin-left: -10%;">
+                <h2>Update Entry</h2>
+            </div>
+            {% if update %}
+                <form method="post" action="{% url 'save_update' %}">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="date">Date</label>
+                        </div>
+                        <div class="col-75">
+                            <input type="date" name="date" id="date" value="{{ update.date }}"
+                                   required>&nbsp;{{ update.date }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="firm_name">Firm Name:</label>
+                        </div>
+                        <div class="col-75">
+                            <select name="firm_name" id="firm_name">
+                            <option value="shri ganesh roadline">Shri Ganesh Roadline</option>
+                            <option value="new gandhi roadline">New Gandhi Roadline</option>
+                        </select> {{ update.firm_name|title }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="lr_no">LR No.:</label>
+                        </div>
+                        <div class="col-75">
+                            <input type="number" name="lr_no" id="lr_no" value="{{ update.lr_no }}" readonly>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="vn">Vehicle no:</label>
+                        </div>
+                        <div class="col-75">
+                            <input type="text" name="vehicle_no" id="vn" value="{{ update.vehicle_no }}" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="location">Location:</label>
+                        </div>
+                        <div class="col-75">
+                            <input type="text" name="location" id="location" value="{{ update.location }}" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="ln">Amount:</label>
+                        </div>
+                        <div class="col-75">
+                            <input type="number" name="amount" id="ln" value="{{ update.amount }}" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="email">Cash:</label>
+                        </div>
+                        <div class="col-75">
+                            <input type="number" name="cash" id="email" value="{{ update.cash }}" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="p1">Diesel:</label>
+                        </div>
+                        <div class="col-75">
+                            <input type="number" name="diesel" id="p1" value="{{ update.diesel }}" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="p2">RTGS:</label>
+                        </div>
+                        <div class="col-75">
+                            <input type="number" name="rtgs" id="p2" value="{{ update.rtgs }}" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="p3">Commission:</label>
+                        </div>
+                        <div class="col-75">
+                            <input type="number" name="commission" id="p3" value="{{ update.commission }}" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="status">Status:</label>
+                        </div>
+                        <div class="col-75">
+                            <select name="status" id="status">
+                                <option value="done">Done</option>
+                                <option value="pending">Pending</option>
+                                <option value="cancle">Cancle</option>
+                            </select> {{ update.status|title }}
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="signup">
+                            <input type="submit" class="btn btn-lg btn-success" value="Add Entry"><br><br><br>
+                        </div>
+                    </div>
+                </form>
+            {% endif %}
+        </div>
+    </section><!-- End Services Section -->
+
+
+{% endblock %}
